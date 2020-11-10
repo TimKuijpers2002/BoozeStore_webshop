@@ -15,6 +15,7 @@ namespace LOGIC_layer.Models
         public decimal AlcoholPercentage { get; set; }
         public int AmountStored { get; set; }
         public decimal Price { get; set; }
+        public string ImageLink { get; set; }
 
         public List<DrinkModel> GetAllDrinks()
         {
@@ -30,7 +31,8 @@ namespace LOGIC_layer.Models
                     Volume = dto.Volume,
                     AlcoholPercentage = dto.AlcoholPercentage,
                     AmountStored = dto.AmountStored,
-                    Price = dto.Price
+                    Price = dto.Price,
+                    ImageLink = dto.ImageLink
                 });
             }
             return drink;
@@ -39,38 +41,6 @@ namespace LOGIC_layer.Models
         public void Delete(int drinkID)
         {
             DrinkFactory.drinkConnectionHandler.DeleteDrink(drinkID);
-        }
-
-        public void Update(DrinkModel drink)
-        {
-            var _dto = new DTODrink()
-            {
-                DrinkID = drink.DrinkID,
-                Name = drink.Name,
-                TypeID = drink.TypeID,
-                Volume = drink.Volume,
-                AlcoholPercentage = drink.AlcoholPercentage,
-                AmountStored = drink.AmountStored,
-                Price = drink.Price,
-            };
-
-            DrinkFactory.drinkConnectionHandler.UpdateDrink(_dto);
-        }
-
-        public void Create(DrinkModel drink)
-        {
-            var _dto = new DTODrink()
-            {
-                DrinkID = drink.DrinkID,
-                Name = drink.Name,
-                TypeID = drink.TypeID,
-                Volume = drink.Volume,
-                AlcoholPercentage = drink.AlcoholPercentage,
-                AmountStored = drink.AmountStored,
-                Price = drink.Price,
-            };
-
-            DrinkFactory.drinkConnectionHandler.CreateDrink(_dto);
         }
     }
 }

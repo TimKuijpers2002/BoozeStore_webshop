@@ -13,5 +13,6 @@ namespace DTO_layer.DTO_s
         public decimal AlcoholPercentage { get; set; }
         public int AmountStored { get; set; }
         public decimal Price { get; set; }
+        public string ImageLink { get; set; }
     }
 }

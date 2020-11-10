@@ -21,7 +21,7 @@ namespace DAL_layer.DataContext
             var drinks = new List<DTODrink>();
             using (_dbCon.Open())
             {
-                string query = "SELECT * FROM [dbi431200].[dbo].[Drinks]";
+                string query = "SELECT * FROM [dbi431200].[dbo].[Drink]";
                 //using, closes the connection at the end for you.
                 // ||
                 // \/
@@ -39,6 +39,7 @@ namespace DAL_layer.DataContext
                             AlcoholPercentage = reader.GetDecimal(4),
                             AmountStored = reader.GetInt32(5),
                             Price = reader.GetDecimal(6),
+                            ImageLink = reader.GetString(7)
 
                         };
 
@@ -53,7 +54,7 @@ namespace DAL_layer.DataContext
         {
             using (_dbCon.Open())
             {
-                string query = "INSERT INTO Drinks (Name, TypeID, Volume, AlcoholPercentage, AmountStored, Price) VALUES (@Name, @TypeID, @Volume, @AlcoholPercentage, @AmountStored, @Price);";
+                string query = "INSERT INTO Drink (Name, TypeID, Volume, AlcoholPercentage, AmountStored, Price) VALUES (@Name, @TypeID, @Volume, @AlcoholPercentage, @AmountStored, @Price, @ImageLink);";
                 using (SqlCommand command = new SqlCommand(query, _dbCon.connection))
                 {
 
@@ -64,46 +65,18 @@ namespace DAL_layer.DataContext
                     command.Parameters.AddWithValue("@AlcoholPercentage", D1.AlcoholPercentage);
                     command.Parameters.AddWithValue("@AmountStored", D1.AmountStored);
                     command.Parameters.AddWithValue("@Price", D1.Price);
+                    command.Parameters.AddWithValue("@ImageLink", D1.ImageLink);
 
                     command.ExecuteNonQuery();
                 }
             }
         }
 
-        /*        public DTODrink GetByIDDrink(DTODrink _event)
-                {
-                    DTODrink drink = new DTODrink();
-                    using (_dbCon.Open())
-                    {
-                        string query = "SELECT * FROM Drink WHERE DrinkID = @DrinkID; ";
-                        using (SqlCommand command = new SqlCommand(query, _dbCon.connection))
-                        {
-                            command.Parameters.AddWithValue("@DrinkID", _event.DrinkID);
-
-                            var reader = command.ExecuteReader();
-
-                            while (reader.Read())
-                            {
-                                drink.DrinkID = reader.GetInt32(0);
-                                drink.Name = reader.GetString(1);
-                                drink.TypeID = reader.GetInt32(2);
-                                drink.Volume = reader.GetInt32(3);
-                                drink.AlcoholPercentage = reader.GetDecimal(4);
-                                drink.AmountStored = reader.GetInt32(5);
-                                drink.Price = reader.GetDecimal(6);
-
-                            }
-
-                        }
-                    }
-                    return drink;
-                }*/
-
         public void UpdateDrink(DTODrink U1)
         {
             using (_dbCon.Open())
             {
-                string query = "UPDATE Drink Set Name = @Name, TypeID = @TypeID, Volume = @Volume, AlcoholPercentage = @AlcoholPercentage, AmountStored = @AmountStored, Price = @Price WHERE DrinkID = @DrinkID;";
+                string query = "UPDATE Drink Set Name = @Name, TypeID = @TypeID, Volume = @Volume, AlcoholPercentage = @AlcoholPercentage, AmountStored = @AmountStored, Price = @Price, ImageLink = @ImageLink WHERE DrinkID = @DrinkID;";
                 using (SqlCommand command = new SqlCommand(query, _dbCon.connection))
                 {
                     command.Parameters.AddWithValue("@DrinkID", U1.DrinkID);
@@ -113,6 +86,7 @@ namespace DAL_layer.DataContext
                     command.Parameters.AddWithValue("@AlcoholPercentage", U1.AlcoholPercentage);
                     command.Parameters.AddWithValue("@AmountStored", U1.AmountStored);
                     command.Parameters.AddWithValue("@Price", U1.Price);
+                    command.Parameters.AddWithValue("@ImageLink", U1.ImageLink);
 
                     command.ExecuteNonQuery();
                 }

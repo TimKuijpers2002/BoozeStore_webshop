@@ -11,11 +11,6 @@ namespace BoozeStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly DrinkModel drinkmodel;
-        public HomeController()
-        {
-            drinkmodel = new DrinkModel();
-        }
         public IActionResult Index()
         {
             return View();

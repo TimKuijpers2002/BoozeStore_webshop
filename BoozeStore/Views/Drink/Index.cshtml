@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BoozeStore.Models.DrinkViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="h2 pt-3 text-center font-weight-bold">Our drinks!</div>
+<hr />
+
+<div class="col-container">
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4  ">
+                <div class="card mb-4">
+                    <div class="card-img-top bd-placeholder-img" style="width:inherit; height:250px ">
+                        <img class="img-fluid" style="width:auto; height:auto" src="@Html.DisplayFor(ModelItem => item.ImageLink)" />
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">@Html.DisplayFor(Modelitem => item.Name) </h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-secondary">@Html.ActionLink("Lees meer!", "Details", "Drink", new { ID = item.DrinkID })</button>
+                            </div>
+                            <small class="text-muted">Rentalprice €@Html.DisplayFor(Modelitem => item.Price)</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <img src="https://www.alfabier.nl/wp-content/uploads/2018/03/duo-alfa-edel-pils.png" />
+        }
+    </div>
+
+</div>
