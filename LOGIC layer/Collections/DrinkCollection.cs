@@ -32,17 +32,7 @@ namespace LOGIC_layer.Collections
             var drink = new List<DrinkModel>();
             foreach (var dto in result)
             {
-                drink.Add(new DrinkModel
-                {
-                    DrinkID = dto.DrinkID,
-                    Name = dto.Name,
-                    TypeID = dto.TypeID,
-                    Volume = dto.Volume,
-                    AlcoholPercentage = dto.AlcoholPercentage,
-                    AmountStored = dto.AmountStored,
-                    Price = dto.Price,
-                    ImageLink = dto.ImageLink
-                });
+                drink.Add(new DrinkModel(dto.DrinkID,dto.Name,dto.TypeID,dto.Volume,dto.AlcoholPercentage,dto.AmountStored,dto.Price,dto.ImageLink));
             }
             return drink;
         }

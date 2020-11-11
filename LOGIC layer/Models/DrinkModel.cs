@@ -17,7 +17,17 @@ namespace LOGIC_layer.Models
         public decimal Price { get; }
         public string ImageLink { get; }
 
-
+        public DrinkModel(int drinkID, string name, int typeID, int volume, decimal alcoholpercentage, int amountstored, decimal price, string imagelink)
+        {
+            DrinkID = drinkID;
+            Name = name;
+            TypeID = typeID;
+            Volume = volume;
+            AlcoholPercentage = alcoholpercentage;
+            AmountStored = amountstored;
+            Price = price;
+            ImageLink = imagelink;
+        }
 
         public void Delete(int drinkID)
         {

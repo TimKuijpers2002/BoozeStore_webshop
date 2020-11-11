@@ -16,7 +16,7 @@ namespace BoozeStore.Controllers
         private List<DrinkViewModel> DVM;
         public DrinkController()
         {
-            drinkmodel = new DrinkModel();
+            //drinkmodel = new DrinkModel();
         }
         public IActionResult Index()
         {
