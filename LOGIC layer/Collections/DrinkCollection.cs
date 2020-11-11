@@ -26,21 +26,27 @@ namespace LOGIC_layer.Collections
             DrinkFactory.drinkConnectionHandler.CreateDrink(_dto);
         }
 
-        public void Update(DrinkModel drink)
+        public List<DrinkModel> GetAllDrinks()
         {
-            var _dto = new DTODrink()
+            var result = DrinkFactory.drinkConnectionHandler.GetDrinks();
+            var drink = new List<DrinkModel>();
+            foreach (var dto in result)
             {
-                DrinkID = drink.DrinkID,
-                Name = drink.Name,
-                TypeID = drink.TypeID,
-                Volume = drink.Volume,
-                AlcoholPercentage = drink.AlcoholPercentage,
-                AmountStored = drink.AmountStored,
-                Price = drink.Price,
-                ImageLink = drink.ImageLink
-            };
-
-            DrinkFactory.drinkConnectionHandler.UpdateDrink(_dto);
+                drink.Add(new DrinkModel
+                {
+                    DrinkID = dto.DrinkID,
+                    Name = dto.Name,
+                    TypeID = dto.TypeID,
+                    Volume = dto.Volume,
+                    AlcoholPercentage = dto.AlcoholPercentage,
+                    AmountStored = dto.AmountStored,
+                    Price = dto.Price,
+                    ImageLink = dto.ImageLink
+                });
+            }
+            return drink;
         }
+
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BoozeStore.Models;
+using LOGIC_layer.Collections;
 using LOGIC_layer.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace BoozeStore.Controllers
     public class DrinkController : Controller
     {
         private readonly DrinkModel drinkmodel;
+        private readonly DrinkCollection drinkcollection = new DrinkCollection();
         private List<DrinkViewModel> DVM;
         public DrinkController()
         {
@@ -18,7 +20,7 @@ namespace BoozeStore.Controllers
         }
         public IActionResult Index()
         {
-            var all = drinkmodel.GetAllDrinks();
+            var all = drinkcollection.GetAllDrinks();
             DVM = new List<DrinkViewModel>();
 
             foreach (var drink in all)
@@ -31,7 +33,6 @@ namespace BoozeStore.Controllers
                     AmountStored = drink.AmountStored,
                     Price = drink.Price,
                     ImageLink = drink.ImageLink
-                    
                 });
             }
             return View(DVM);
