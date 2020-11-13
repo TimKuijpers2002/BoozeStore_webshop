@@ -97,10 +97,10 @@ namespace DAL_layer.DataContext
         {
             using (_dbCon.Open())
             {
-                string query = "DELETE FROM Drink WHERE ID=@ID";
+                string query = "DELETE FROM Drink WHERE DrinkID=@DrinkID";
                 using (SqlCommand command = new SqlCommand(query, _dbCon.connection))
                 {
-                    command.Parameters.AddWithValue("@ID", drinkID);
+                    command.Parameters.AddWithValue("@DrinkID", drinkID);
                     _dbCon.Open();
                     command.ExecuteNonQuery();
                 }

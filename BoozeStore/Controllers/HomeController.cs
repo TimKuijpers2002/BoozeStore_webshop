@@ -6,14 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BoozeStore.Models;
 using LOGIC_layer.Models;
+using LOGIC_layer.Collections;
 
 namespace BoozeStore.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ShoppingCartModel shoppingCartModel;
+        private readonly ShoppingCartCollection shoppingCartCollection = new ShoppingCartCollection();
+        private List<ShoppingCartViewModel> SCVM;
+
         public IActionResult Index()
         {
-            return View();
+            //VRAAG DIT EVEN NA!!
+            //shoppingCartCollection.Create(ShoppingCartModel cart);
+
+            //ShoppingCartCollection.Create(cart);
+            TempData["Create"] = "The records has been added to the system!";
+            return RedirectToAction("Index", "Drink");
         }
 
         public IActionResult About()
