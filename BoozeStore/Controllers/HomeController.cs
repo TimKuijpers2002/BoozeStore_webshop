@@ -12,18 +12,10 @@ namespace BoozeStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ShoppingCartModel shoppingCartModel;
-        private readonly ShoppingCartCollection shoppingCartCollection = new ShoppingCartCollection();
-        private List<ShoppingCartViewModel> SCVM;
 
         public IActionResult Index()
         {
-            //VRAAG DIT EVEN NA!!
-            //shoppingCartCollection.Create(ShoppingCartModel cart);
-
-            //ShoppingCartCollection.Create(cart);
-            TempData["Create"] = "The records has been added to the system!";
-            return RedirectToAction("Index", "Drink");
+            return View();
         }
 
         public IActionResult About()

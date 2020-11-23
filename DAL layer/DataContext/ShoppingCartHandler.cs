@@ -21,14 +21,13 @@ namespace DAL_layer.DataContext
         {
             using (_dbCon.Open())
             {
-                string query = "INSERT INTO ShoppingCart (CustomerID, TotalPrice, CreationTime) VALUES (@CustomerID, @TotalPrice, @CreationTime);";
+                string query = "INSERT INTO ShoppingCart (CustomerID, TotalPrice, CreationTime) VALUES (@CustomerID, @TotalPrice, @CreationTime = CURRENT_TIMESTAMP);";
                 using (SqlCommand command = new SqlCommand(query, _dbCon.connection))
                 {
 
-                    command.Parameters.AddWithValue("@CartID", C1.CartID);
+                    command.Parameters.AddWithValue("@CartID", C1.CustomerID);
                     command.Parameters.AddWithValue("@CustomerID", C1.CustomerID);
                     command.Parameters.AddWithValue("@TotalPrice", C1.TotalPrice);
-                    command.Parameters.AddWithValue("@CreationTime", C1.CreationTime);
 
                     command.ExecuteNonQuery();
                 }

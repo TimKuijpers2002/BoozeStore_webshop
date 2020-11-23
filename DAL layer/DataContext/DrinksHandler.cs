@@ -57,8 +57,6 @@ namespace DAL_layer.DataContext
                 string query = "INSERT INTO Drink (Name, TypeID, Volume, AlcoholPercentage, AmountStored, Price) VALUES (@Name, @TypeID, @Volume, @AlcoholPercentage, @AmountStored, @Price, @ImageLink);";
                 using (SqlCommand command = new SqlCommand(query, _dbCon.connection))
                 {
-
-                    command.Parameters.AddWithValue("@DrinkID", D1.DrinkID);
                     command.Parameters.AddWithValue("@Name", D1.Name);
                     command.Parameters.AddWithValue("@TypeID", D1.TypeID);
                     command.Parameters.AddWithValue("@Volume", D1.Volume);

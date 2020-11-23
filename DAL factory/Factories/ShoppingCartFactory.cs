@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL_factory.Factories
 {
-    public class ShoppingCartFactory
+    public static class ShoppingCartFactory
     {
         private static IShoppingCartHandler _shoppingCartConnectionHandler;
 
