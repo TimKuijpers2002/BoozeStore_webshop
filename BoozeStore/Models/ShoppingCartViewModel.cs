@@ -12,7 +12,7 @@ namespace BoozeStore.Models
         public int CartID { get; set; }
 
         [Key]
-        public int CustomerID { get; set; }
+        public string CustomerID { get; set; }
 
         [Display(Name = "TotalPrice")]
         [Required(ErrorMessage = "Required")]

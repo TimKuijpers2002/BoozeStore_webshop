@@ -14,4 +14,8 @@
     <ProjectReference Include="..\LOGIC layer\LOGIC layer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\ShoppingCart\" />
+  </ItemGroup>
+
 </Project>

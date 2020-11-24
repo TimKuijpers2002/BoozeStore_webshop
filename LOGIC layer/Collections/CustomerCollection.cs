@@ -9,17 +9,32 @@ namespace LOGIC_layer.Collections
 {
     public class CustomerCollection
     {
-        public void Create(CustomerModel customer)
+        public void Create(CustomerModel customer, ShoppingCartModel shoppingCartModel)
         {
+            var ID = customer.GeneratedID();
+
             var _dto = new DTOCustomer()
             {
-                CustomerID = customer.CustomerID,
+                CustomerID = ID,
                 Name = customer.Name,
                 Adress = customer.Adress,
                 Email = customer.Email
             };
-
+            CreateCart(shoppingCartModel, ID);
             CustomerFactory.customerConnectionHandler.CreateCustomer(_dto);
+        }
+        public void CreateCart(ShoppingCartModel cart, string customerID)
+        {
+
+            var _dto = new DTOShoppingCart()
+            {
+                CartID = cart.CartID,
+                CustomerID = customerID,
+                TotalPrice = cart.TotalPrice,
+                CreationTime = cart.CreationTime,
+            };
+
+            ShoppingCartFactory.shoppingCartConnectionHandler.CreateShoppingCart(_dto);
         }
     }
 }

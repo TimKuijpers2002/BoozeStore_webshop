@@ -9,7 +9,7 @@ namespace BoozeStore.Models
     public class CustomerViewModel
     {
         [Key]
-        public int CustomerID { get; set; }
+        public string CustomerID { get; set; }
 
         [Display(Name = "Name")]
         [Required(ErrorMessage = "Required")]

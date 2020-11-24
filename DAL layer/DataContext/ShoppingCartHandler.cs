@@ -21,13 +21,13 @@ namespace DAL_layer.DataContext
         {
             using (_dbCon.Open())
             {
-                string query = "INSERT INTO ShoppingCart (CustomerID, TotalPrice, CreationTime) VALUES (@CustomerID, @TotalPrice, @CreationTime = CURRENT_TIMESTAMP);";
+                string query = "INSERT INTO ShoppingCart (CustomerID, TotalPrice, CreationTime) VALUES (@CustomerID, @TotalPrice, @CreationTime);";
                 using (SqlCommand command = new SqlCommand(query, _dbCon.connection))
                 {
 
-                    command.Parameters.AddWithValue("@CartID", C1.CustomerID);
                     command.Parameters.AddWithValue("@CustomerID", C1.CustomerID);
                     command.Parameters.AddWithValue("@TotalPrice", C1.TotalPrice);
+                    command.Parameters.AddWithValue("@CreationTime", C1.CreationTime);
 
                     command.ExecuteNonQuery();
                 }
@@ -65,7 +65,7 @@ namespace DAL_layer.DataContext
                         DTOShoppingCart CartDTO = new DTOShoppingCart
                         {
                             CartID = reader.GetInt32(0),
-                            CustomerID = reader.GetInt32(1),
+                            CustomerID = reader.GetString(1),
                             TotalPrice = reader.GetDecimal(2),
                             CreationTime = reader.GetDateTime(3)
                         };

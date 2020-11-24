@@ -8,6 +8,7 @@ namespace Interfaces.IHandlers
     public interface ICustomerHandler
     {
         void CreateCustomer(DTOCustomer C1);
-        void DeleteCustomer(int ID);
+        void DeleteCustomer(string ID);
+        List<DTOCustomer> GetCustomers();
     }
 }

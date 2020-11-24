@@ -1,0 +1,22 @@
+﻿
+@model BoozeStore.Models.CustomerViewModel
+@{
+    ViewData["Title"] = "Create Customer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-container">
+    <h1>Get your shoppingcart here!</h1>
+    <form>
+        <p>Name:</p><input class="input-group-text" asp-for="Name" type="text" asp-validation-for="Name" class="danger" /><span asp-validation-for="Name" class="danger"></span>
+        <p>Email:</p><input class="input-group-text" asp-for="Email" type="email" /><span asp-validation-for="Email" class="danger"></span>
+        <p>Postal Code</p><input type="text" class="postcode" asp-for="Adress" style="text-transform:uppercase" maxlength="6" pattern="[0-9]{4}[A-Za-z]{2}" placeholder="0011XX" /><span asp-validation-for="Adress" class="danger"></span>
+        <p style="margin-top:1vh;margin-bottom:0">Are you legally allowed to buy alcoholic drinks?</p>
+        <small>Only check if you're 18 years or older!</small>
+        <input type="checkbox" class="input-group" />
+        <br />
+        <input asp-action="CreateCustomer"   type="submit">
+    </form>
+</div>
+@section Scripts{ @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}}

@@ -9,11 +9,11 @@ namespace LOGIC_layer.Models
     public class ShoppingCartModel
     {
         public int CartID { get; }
-        public int CustomerID { get; }
+        public string CustomerID { get; }
         public decimal TotalPrice { get; }
         public DateTime CreationTime { get; }
 
-        public ShoppingCartModel(int cartID, int customerID, decimal totalPrice, DateTime creationTime)
+        public ShoppingCartModel(int cartID, string customerID, decimal totalPrice, DateTime creationTime)
         {
             CartID = cartID;
             CustomerID = customerID;
