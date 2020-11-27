@@ -1,4 +1,5 @@
 ﻿using DAL_factory.Factories;
+using DTO_layer.DTO_s;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,6 +30,20 @@ namespace LOGIC_layer.Models
         {
             string id = Guid.NewGuid().ToString();
             return id;
+        }
+
+        public void CreateCart(ShoppingCartModel cart, string customerID)
+        {
+
+            var _dto = new DTOShoppingCart()
+            {
+                CartID = cart.CartID,
+                CustomerID = customerID,
+                TotalPrice = cart.TotalPrice,
+                CreationTime = cart.CreationTime,
+            };
+
+            ShoppingCartFactory.shoppingCartConnectionHandler.CreateShoppingCart(_dto);
         }
     }
 }

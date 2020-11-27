@@ -15,7 +15,7 @@ namespace BoozeStore.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Drink");
         }
 
         public IActionResult About()
