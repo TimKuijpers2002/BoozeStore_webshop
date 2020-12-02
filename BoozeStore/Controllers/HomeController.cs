@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using BoozeStore.Models;
 using LOGIC_layer.Models;
 using LOGIC_layer.Collections;
+using Microsoft.AspNetCore.Http;
 
 namespace BoozeStore.Controllers
 {
@@ -18,23 +19,19 @@ namespace BoozeStore.Controllers
             return RedirectToAction("Index", "Drink");
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult StoreValuesCookie(int ID)
+        {
+            string Key = "shoppingcart";
+            string value = Request.Cookies["shoppingcart"];
+            CookieOptions cookie = new CookieOptions();
+            cookie.Expires = DateTime.Now.AddDays(7);
+            Response.Cookies.Append(Key, Convert.ToString(ID) + "I" + value, cookie);
+            return RedirectToAction("Index", "Drink");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -14,7 +14,7 @@
         @foreach (var item in Model)
         {
             <div class="col-sm-4  ">
-                <div class="card mb-4">
+                <div style="border:5px solid black; align-items:center" class="card mb-4">
                     <div class="card-img-top bd-placeholder-img" style="width:inherit; height:250px ">
                         <img class="img-fluid" style="width:auto; height:25vh;" src="@Html.DisplayFor(ModelItem => item.ImageLink)" />
                     </div>
@@ -23,6 +23,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-outline-secondary">@Html.ActionLink("Lees meer!", "Details", "Drink", new { ID = item.DrinkID })</button>
+                                <button class="btn btn-sm btn-outline-secondary">`@Html.ActionLink("Add drink", "StoreValuesCookie", "Home", new { ID = item.DrinkID})</button>
                             </div>
                             <small class="text-muted">Rentalprice €@Html.DisplayFor(Modelitem => item.Price)</small>
                         </div>
