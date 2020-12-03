@@ -18,25 +18,33 @@ namespace BoozeStore.Controllers
         {
             //drinkmodel = new DrinkModel();
         }
-        public IActionResult Index()
+        public IActionResult Index(string SearchText)
         {
             var all = drinkcollection.GetAllDrinks();
             DVM = new List<DrinkViewModel>();
 
-            foreach (var drink in all)
+            if (!string.IsNullOrEmpty(SearchText))
             {
-                DVM.Add(new DrinkViewModel
+                var result = all.Where(d => d.Name.Contains(SearchText));
+                foreach (var unconvertedArticle in result)
                 {
-                    DrinkID = drink.DrinkID,
-                    Name = drink.Name,
-                    Volume = drink.Volume,
-                    AlcoholPercentage = drink.AlcoholPercentage,
-                    AmountStored = drink.AmountStored,
-                    Price = drink.Price,
-                    ImageLink = drink.ImageLink
-                });
+                        DrinkViewModel viewModel = new DrinkViewModel() { DrinkID = unconvertedArticle.DrinkID, Name = unconvertedArticle.Name, Volume = unconvertedArticle.Volume, AlcoholPercentage = unconvertedArticle.AlcoholPercentage, AmountStored = unconvertedArticle.AmountStored, Price = unconvertedArticle.Price, ImageLink = unconvertedArticle.ImageLink};
+                        DVM.Add(viewModel);
+                }
+                ViewData["Drinks"] = DVM;
+                return View(DVM);
             }
-            return View(DVM);
+            else
+            {
+                    foreach (var drink in all)
+                    {
+                        DrinkViewModel viewModel = new DrinkViewModel() { DrinkID = drink.DrinkID, Name = drink.Name, Volume = drink.Volume, AlcoholPercentage = drink.AlcoholPercentage, AmountStored = drink.AmountStored, Price = drink.Price, ImageLink = drink.ImageLink };
+                        DVM.Add(viewModel);
+                    }
+                ViewData["Drinks"] = DVM;
+                return View(DVM);
+                
+            }
         }
 
         public IActionResult Details(int? ID)

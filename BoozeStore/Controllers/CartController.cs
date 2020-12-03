@@ -25,9 +25,9 @@ namespace BoozeStore.Controllers
 
             if (DrinkIDs != null)
             {
-                for (int j = 0; j < DrinkIDs.Count; j++) { 
+                for (int j = 0; j < _DrinkIDs.Count; j++) { 
 
-                    for (int i = 0; i < DrinkIDs.Count; i++)
+                    for (int i = 0; i < all.Count; i++)
                     {
                         if (_DrinkIDs[j] == all[i].DrinkID)
                         {
