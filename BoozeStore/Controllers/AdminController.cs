@@ -53,16 +53,23 @@ namespace BoozeStore.Controllers
 
         public IActionResult OrderDetails(string ID)
         {
+            var drinks = drinkColl.GetAllDrinks();
             var items = itemColl.GetByCartID(ID);
             foreach (var drink in items) {
-                var order = new CartItemViewModel()
-                {
-                    CartID = drink.CartID,
-                    DrinkID = drink.DrinkID,
-                    Quantity = drink.Quantity
 
-                };
-                CIVM.Add(order);
+                var result = drinks.Where(a => a.DrinkID == drink.DrinkID).ToList();
+                foreach (var drinkresult in result) {
+                    var order = new CartItemViewModel()
+                    {
+                        CartID = drink.CartID,
+                        DrinkID = drink.DrinkID,
+                        Quantity = drink.Quantity,
+                        Name = drinkresult.Name,
+                        ImageLink = drinkresult.ImageLink
+                        
+                    };
+                    CIVM.Add(order);
+                } 
             }
 
             return View(CIVM);
