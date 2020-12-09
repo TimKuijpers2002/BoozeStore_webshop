@@ -8,7 +8,12 @@ namespace DAL_layer.DataContext
 {
     public class DBConnectionHandler : IDBConnectionHandler
     {
-        private protected string connectionString = "Server=mssql.fhict.local;Database=dbi431200;User Id=dbi431200;Password=TimK2002;";
+        private static string connectionString = "";
+
+        public static void SetConnectionString(string constring)
+        {
+            connectionString = constring;
+        }
         public SqlConnection connection { get; private set; }
         public SqlConnection Open()
         {

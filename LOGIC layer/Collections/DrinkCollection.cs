@@ -36,7 +36,5 @@ namespace LOGIC_layer.Collections
             }
             return drink;
         }
-
-
     }
 }

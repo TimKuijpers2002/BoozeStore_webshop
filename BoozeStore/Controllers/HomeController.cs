@@ -26,11 +26,22 @@ namespace BoozeStore.Controllers
 
         public IActionResult StoreValuesCookie(int ID)
         {
-            string Key = "shoppingcart";
-            string value = Request.Cookies["shoppingcart"];
+            string Key = Convert.ToString(ID);
             CookieOptions cookie = new CookieOptions();
             cookie.Expires = DateTime.Now.AddDays(7);
-            Response.Cookies.Append(Key, Convert.ToString(ID) + "I" + value, cookie);
+
+            if(Request.Cookies[Key] == null)
+            {
+                Response.Cookies.Append(Key, "1", cookie);
+            }
+            else
+            {
+                int quantity = Convert.ToInt32(Request.Cookies[Key]);
+                quantity += 1;
+                string value = Convert.ToString(quantity);
+                Response.Cookies.Append(Key, value, cookie);
+            }
+            
             return RedirectToAction("Index", "Drink");
         }
 

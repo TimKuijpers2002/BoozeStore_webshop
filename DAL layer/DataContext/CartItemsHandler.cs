@@ -62,7 +62,7 @@ namespace DAL_layer.DataContext
                     {
                         DTOOrder OrderDTO = new DTOOrder
                         {
-                            CartID = reader.GetInt32(0),
+                            CartID = reader.GetString(0),
                             DrinkID = reader.GetInt32(1),
                             Quantity = reader.GetInt32(2),
 

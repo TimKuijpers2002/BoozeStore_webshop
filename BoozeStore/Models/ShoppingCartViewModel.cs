@@ -9,7 +9,7 @@ namespace BoozeStore.Models
     public class ShoppingCartViewModel
     {
         [Key]
-        public int CartID { get; set; }
+        public string CartID { get; set; }
 
         [Key]
         public string CustomerID { get; set; }
@@ -20,6 +20,16 @@ namespace BoozeStore.Models
 
         [Display(Name = "CreationTime")]
         [Required(ErrorMessage = "Required")]
-        public DateTime CreationTime { get; set; }
+
+        private DateTime? date;
+
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DataType(DataType.Date)]
+        public DateTime CreationTime
+        {
+            get { return date ?? DateTime.Today; }
+            set { date = value; }
+        }
     }
 }

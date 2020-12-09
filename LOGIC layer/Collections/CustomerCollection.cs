@@ -9,7 +9,13 @@ namespace LOGIC_layer.Collections
 {
     public class CustomerCollection
     {
-        public void Create(CustomerModel customer, ShoppingCartModel shoppingCartModel)
+        private CartItemCollection cartColl;
+
+        public CustomerCollection()
+        {
+            cartColl = new CartItemCollection();
+        }
+        public void Create(CustomerModel customer, ShoppingCartModel shoppingCartModel, List<CartItemModel> cartItemModel)
         {
             var ID = customer.GeneratedID();
 
@@ -20,7 +26,15 @@ namespace LOGIC_layer.Collections
                 Adress = customer.Adress,
                 Email = customer.Email
             };
+
             customer.CreateCart(shoppingCartModel, ID);
+
+            foreach (var item in cartItemModel)
+            {
+                var model = new CartItemModel(item.CartID, item.DrinkID, item.Quantity);
+                cartColl.Create(model, ID);
+            }
+
             CustomerFactory.customerConnectionHandler.CreateCustomer(_dto);
         }
     }

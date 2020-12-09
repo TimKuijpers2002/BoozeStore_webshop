@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL_layer.DataContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,9 +16,11 @@ namespace BoozeStore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private string ConnectionString = "";
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
+            ConnectionString = configuration["ConnectionStrings:DefaultConnection"];
         }
 
         public IConfiguration Configuration { get; }
@@ -62,6 +65,9 @@ namespace BoozeStore
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            DBConnectionHandler.SetConnectionString(ConnectionString);
+
+
         }
     }
 }

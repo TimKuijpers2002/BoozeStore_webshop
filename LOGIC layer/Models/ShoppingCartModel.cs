@@ -8,12 +8,12 @@ namespace LOGIC_layer.Models
 {
     public class ShoppingCartModel
     {
-        public int CartID { get; }
+        public string CartID { get; }
         public string CustomerID { get; }
         public decimal TotalPrice { get; }
         public DateTime CreationTime { get; }
 
-        public ShoppingCartModel(int cartID, string customerID, decimal totalPrice, DateTime creationTime)
+        public ShoppingCartModel(string cartID, string customerID, decimal totalPrice, DateTime creationTime)
         {
             CartID = cartID;
             CustomerID = customerID;
@@ -37,6 +37,25 @@ namespace LOGIC_layer.Models
             };
 
             ShoppingCartFactory.shoppingCartConnectionHandler.UpdateShoppingCart(_dto);
+        }
+
+        public decimal GetTotalPrice(List<CartItemModel> cim, List<DrinkModel> dm, decimal totalPrice)
+        {
+            var TotalPrice = totalPrice;
+
+            foreach (var item in cim) 
+            {
+                for (int i = 0; i < dm.Count; i++)
+                {
+                    if (item.DrinkID == dm[i].DrinkID)
+                    {
+                        var DrinkTotalPrice = item.Quantity * dm[i].Price;
+                        TotalPrice += DrinkTotalPrice;
+                    }
+                }
+            }
+
+            return TotalPrice;
         }
     }
 }

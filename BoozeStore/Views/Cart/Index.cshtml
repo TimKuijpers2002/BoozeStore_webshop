@@ -1,11 +1,11 @@
-﻿@model IEnumerable<BoozeStore.Models.DrinkViewModel>
+﻿@model IEnumerable<BoozeStore.Models.CartItemViewModel>
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ShoppingCart</h2>
+<h2>Your Cart</h2>
 
 <table class="table">
     <thead>
@@ -17,16 +17,10 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Volume)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AlcoholPercentage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AmountStored)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
             </th>
             <th></th>
         </tr>
@@ -34,27 +28,21 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <img class="img-fluid" style="width:auto; height:25vh;" src="@Html.DisplayFor(modelItem => item.ImageLink)" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Volume)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AlcoholPercentage)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AmountStored)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-
-            </tr>
+        <tr>
+            <td>
+                <img class="img-fluid" style="width:auto; height:25vh;" src="@Html.DisplayFor(modelItem => item.ImageLink)" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+        </tr>
         }
     </tbody>
+    <button>@Html.ActionLink("Afronden", "Index", "Customer")</button>
 </table>

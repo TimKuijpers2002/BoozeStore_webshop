@@ -8,11 +8,11 @@ namespace LOGIC_layer.Models
 {
     public class CartItemModel
     {
-        public int CartID { get; }
+        public string CartID { get; }
         public int DrinkID { get; }
         public int Quantity { get; }
 
-        public CartItemModel(int cartID, int drinkID, int quantity)
+        public CartItemModel(string cartID, int drinkID, int quantity)
         {
             CartID = cartID;
             DrinkID = drinkID;

@@ -9,20 +9,6 @@ namespace LOGIC_layer.Collections
 {
     public class ShoppingCartCollection
     {
-        /*public void Create(ShoppingCartModel cart)
-        {
-            
-            var _dto = new DTOShoppingCart()
-            {
-                CartID = cart.CartID,
-                CustomerID = ,
-                TotalPrice = cart.TotalPrice,
-                CreationTime = cart.CreationTime,
-            };
-
-            ShoppingCartFactory.shoppingCartConnectionHandler.CreateShoppingCart(_dto);
-        }*/
-
         public List<ShoppingCartModel> GetAllShoppingCarts()
         {
             var result = ShoppingCartFactory.shoppingCartConnectionHandler.GetShoppingCarts();

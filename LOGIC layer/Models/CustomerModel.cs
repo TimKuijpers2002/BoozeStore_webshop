@@ -37,7 +37,7 @@ namespace LOGIC_layer.Models
 
             var _dto = new DTOShoppingCart()
             {
-                CartID = cart.CartID,
+                CartID = customerID,
                 CustomerID = customerID,
                 TotalPrice = cart.TotalPrice,
                 CreationTime = cart.CreationTime,
