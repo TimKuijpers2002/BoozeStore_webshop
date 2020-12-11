@@ -81,5 +81,20 @@ namespace BoozeStore.Controllers
 
             return View(CIVM);
         }
+
+        public IActionResult DeleteOrder(string ID)
+        {
+            var items = itemColl.GetAllOrders();
+            var carts = cartColl.GetByCartID(ID);
+            foreach (var cart in carts) {
+                
+                foreach (var item in items)
+                {
+                    item.Delete(ID);
+                }
+                cart.Delete(ID);
+            }
+            return RedirectToAction("Orders");
+        }
     }
 }

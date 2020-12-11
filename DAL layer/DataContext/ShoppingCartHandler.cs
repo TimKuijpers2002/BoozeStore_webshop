@@ -34,7 +34,7 @@ namespace DAL_layer.DataContext
             }
         }
 
-        public void DeleteShoppingCart(int cartID)
+        public void DeleteShoppingCart(string cartID)
         {
             using (_dbCon.Open())
             {

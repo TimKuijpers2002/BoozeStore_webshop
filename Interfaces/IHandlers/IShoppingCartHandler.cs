@@ -10,6 +10,6 @@ namespace Interfaces.IHandlers
         void CreateShoppingCart(DTOShoppingCart C1);
         List<DTOShoppingCart> GetShoppingCarts();
         void UpdateShoppingCart(DTOShoppingCart UC1);
-        void DeleteShoppingCart(int ID);
+        void DeleteShoppingCart(string ID);
     }
 }

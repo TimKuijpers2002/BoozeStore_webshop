@@ -14,6 +14,7 @@ namespace BoozeStore.Controllers
         private readonly CustomerCollection customerCollection;
         private readonly CartItemCollection itemColl;
         private readonly DrinkCollection drinkColl;
+        private readonly ShoppingCartCollection cartColl;
         private  ShoppingCartModel shoppingCartModel;
         private CustomerModel customerModel;
         private List<CartItemModel> CIM;
@@ -40,8 +41,8 @@ namespace BoozeStore.Controllers
                 CIM.Add(cartItem);
             }
 
-            shoppingCartModel = new ShoppingCartModel("tempID", "tempID", 10m, DateTime.Now);
-            var TotalPrice = shoppingCartModel.GetTotalPrice(CIM, drinks, totalPrice);
+            
+            var TotalPrice = cartColl.GetTotalPrice(CIM, drinks, totalPrice);
             shoppingCartModel = new ShoppingCartModel("tempID", "tempID", TotalPrice, DateTime.Now);
 
             customerModel = new CustomerModel(customerViewModel.CustomerID, customerViewModel.Name, customerViewModel.Adress, customerViewModel.Email);

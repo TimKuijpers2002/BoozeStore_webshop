@@ -21,7 +21,7 @@ namespace LOGIC_layer.Models
             CreationTime = creationTime;
         }
 
-        public void Delete(int cartID)
+        public void Delete(string cartID)
         {
             ShoppingCartFactory.shoppingCartConnectionHandler.DeleteShoppingCart(cartID);
         }
@@ -37,25 +37,6 @@ namespace LOGIC_layer.Models
             };
 
             ShoppingCartFactory.shoppingCartConnectionHandler.UpdateShoppingCart(_dto);
-        }
-
-        public decimal GetTotalPrice(List<CartItemModel> cim, List<DrinkModel> dm, decimal totalPrice)
-        {
-            var TotalPrice = totalPrice;
-
-            foreach (var item in cim) 
-            {
-                for (int i = 0; i < dm.Count; i++)
-                {
-                    if (item.DrinkID == dm[i].DrinkID)
-                    {
-                        var DrinkTotalPrice = item.Quantity * dm[i].Price;
-                        TotalPrice += DrinkTotalPrice;
-                    }
-                }
-            }
-
-            return TotalPrice;
         }
     }
 }

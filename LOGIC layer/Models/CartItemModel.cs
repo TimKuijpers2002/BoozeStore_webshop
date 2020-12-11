@@ -19,7 +19,7 @@ namespace LOGIC_layer.Models
             Quantity = quantity;
         }
 
-        public void Delete(int cartID)
+        public void Delete(string cartID)
         {
             CartItemFactory.orderConnectionHandler.DeleteOrder(cartID);
 

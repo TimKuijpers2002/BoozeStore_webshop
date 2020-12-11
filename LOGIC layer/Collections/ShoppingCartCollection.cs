@@ -19,5 +19,38 @@ namespace LOGIC_layer.Collections
             }
             return cart;
         }
+
+        public List<ShoppingCartModel> GetByCartID(string ID)
+        {
+            var result = GetAllShoppingCarts();
+            List<ShoppingCartModel> carts = new List<ShoppingCartModel>();
+            foreach (var item in result)
+            {
+                if (item.CartID == ID)
+                {
+                    carts.Add(item);
+                }
+            }
+            return carts;
+        }
+
+        public decimal GetTotalPrice(List<CartItemModel> cim, List<DrinkModel> dm, decimal totalPrice)
+        {
+            var TotalPrice = totalPrice;
+
+            foreach (var item in cim) 
+            {
+                for (int i = 0; i < dm.Count; i++)
+                {
+                    if (item.DrinkID == dm[i].DrinkID)
+                    {
+                        var DrinkTotalPrice = item.Quantity * dm[i].Price;
+                        TotalPrice += DrinkTotalPrice;
+                    }
+                }
+            }
+
+            return TotalPrice;
+        }
     }
 }

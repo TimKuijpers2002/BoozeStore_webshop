@@ -10,6 +10,6 @@ namespace Interfaces.IHandlers
         void CreateOrder(DTOOrder O1);
         List<DTOOrder> GetOrders();
         void UpdateOrder(DTOOrder UO1);
-        void DeleteOrder(int ID);
+        void DeleteOrder(string ID);
     }
 }

@@ -32,7 +32,7 @@ namespace DAL_layer.DataContext
             }
         }
 
-        public void DeleteOrder(int ID)
+        public void DeleteOrder(string ID)
         {
             using (_dbCon.Open())
             {
