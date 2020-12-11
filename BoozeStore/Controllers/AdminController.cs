@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BoozeStore.Models;
 using LOGIC_layer.Collections;
+using LOGIC_layer.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoozeStore.Controllers
@@ -13,6 +14,7 @@ namespace BoozeStore.Controllers
         private readonly ShoppingCartCollection cartColl;
         private readonly CartItemCollection itemColl;
         private readonly DrinkCollection drinkColl;
+        private readonly CustomerCollection customerColl;
         private List<CartItemViewModel> CIVM;
 
         public AdminController()
@@ -20,6 +22,7 @@ namespace BoozeStore.Controllers
             cartColl = new ShoppingCartCollection();
             itemColl = new CartItemCollection();
             drinkColl = new DrinkCollection();
+            customerColl = new CustomerCollection();
             CIVM = new List<CartItemViewModel>();
         }
         public IActionResult Index()
@@ -39,14 +42,18 @@ namespace BoozeStore.Controllers
 
             foreach(var order in items)
             {
-                var currentOrder = new ShoppingCartViewModel()
-                {
-                    CartID = order.CartID,
-                    CustomerID = order.CustomerID,
-                    TotalPrice = order.TotalPrice,
-                    CreationTime = order.CreationTime
-                };
-                SVM.Add(currentOrder);
+                var customer = customerColl.GetByCustomerID(order.CustomerID);
+                foreach (var result in customer) {
+                    var currentOrder = new ShoppingCartViewModel()
+                    {
+                        CartID = order.CartID,
+                        CustomerID = order.CustomerID,
+                        Name = result.Name,
+                        TotalPrice = order.TotalPrice,
+                        CreationTime = order.CreationTime
+                    };
+                    SVM.Add(currentOrder);
+                }
             }
             return View(SVM);
         }

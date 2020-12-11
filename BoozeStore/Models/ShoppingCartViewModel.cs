@@ -14,6 +14,10 @@ namespace BoozeStore.Models
         [Key]
         public string CustomerID { get; set; }
 
+        [Display(Name = "Name")]
+        [Required(ErrorMessage = "Required")]
+        public string Name { get; set; }
+
         [Display(Name = "TotalPrice")]
         [Required(ErrorMessage = "Required")]
         public decimal TotalPrice { get; set; }
