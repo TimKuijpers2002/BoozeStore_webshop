@@ -15,6 +15,7 @@ namespace BoozeStore.Controllers
         private readonly CartItemCollection itemColl;
         private readonly DrinkCollection drinkColl;
         private readonly ShoppingCartCollection cartColl;
+        private readonly string tempid = "TempID";
         private  ShoppingCartModel shoppingCartModel;
         private CustomerModel customerModel;
         private List<CartItemModel> CIM;
@@ -26,6 +27,7 @@ namespace BoozeStore.Controllers
             itemColl = new CartItemCollection();
             drinkColl = new DrinkCollection();
             CIM = new List<CartItemModel>();
+            cartColl = new ShoppingCartCollection();
         }
 
         public IActionResult CreateCustomer(CustomerViewModel customerViewModel)
@@ -33,7 +35,7 @@ namespace BoozeStore.Controllers
             List<string> DrinkIDs = Request.Cookies.Keys.ToList();
             var drinks = drinkColl.GetAllDrinks();
 
-            var itemsModel = itemColl.GetDrinkIDs(DrinkIDs, drinks);
+            var itemsModel = itemColl.GetDrinkByIDs(DrinkIDs, drinks);
 
             foreach (var item in itemsModel)
             {
@@ -43,7 +45,7 @@ namespace BoozeStore.Controllers
 
             
             var TotalPrice = cartColl.GetTotalPrice(CIM, drinks, totalPrice);
-            shoppingCartModel = new ShoppingCartModel("tempID", "tempID", TotalPrice, DateTime.Now);
+            shoppingCartModel = new ShoppingCartModel(tempid, tempid, TotalPrice, DateTime.Now);
 
             customerModel = new CustomerModel(customerViewModel.CustomerID, customerViewModel.Name, customerViewModel.Adress, customerViewModel.Email);
             customerCollection.Create(customerModel,shoppingCartModel, CIM);

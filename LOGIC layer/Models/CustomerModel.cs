@@ -1,8 +1,10 @@
 ﻿using DAL_factory.Factories;
 using DTO_layer.DTO_s;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MailKit.Net.Smtp;
 
 namespace LOGIC_layer.Models
 {
@@ -44,6 +46,30 @@ namespace LOGIC_layer.Models
             };
 
             ShoppingCartFactory.shoppingCartConnectionHandler.CreateShoppingCart(_dto);
+        }
+
+        public void SendEmail(string sender, string email, string name)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Your GP", sender));
+            message.To.Add(new MailboxAddress(name, email));
+            message.Subject = "Register password";
+            message.Body = new TextPart("plain")
+            {
+                Text = "Change your password using this link: https://localhost:44341/Account/inputpassword"
+            };
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.office365.com", 587, false);
+                client.Authenticate(sender, "TimK2002");
+                var options = FormatOptions.Default.Clone();
+                if (client.Capabilities.HasFlag(SmtpCapabilities.UTF8))
+                {
+                    options.International = true;
+                }
+                client.Send(options, message);
+                client.Disconnect(true);
+            };
         }
     }
 }

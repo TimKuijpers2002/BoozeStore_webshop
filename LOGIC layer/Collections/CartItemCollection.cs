@@ -32,7 +32,7 @@ namespace LOGIC_layer.Collections
             return order;
         }
 
-        public List<CartItemModel> GetDrinkIDs(List<string> keyIDs, List<DrinkModel> drinks)
+        public List<CartItemModel> GetDrinkByIDs(List<string> keyIDs, List<DrinkModel> drinks)
         {
             List<int> _DrinkIDs = keyIDs.Select(int.Parse).ToList();
             var DM = new List<CartItemModel>();

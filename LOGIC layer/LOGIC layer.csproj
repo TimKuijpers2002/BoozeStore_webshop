@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.10.0" />
+    <PackageReference Include="MimeKit" Version="2.10.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DAL factory\DAL factory.csproj" />
   </ItemGroup>
 

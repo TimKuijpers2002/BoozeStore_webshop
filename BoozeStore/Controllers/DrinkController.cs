@@ -12,11 +12,11 @@ namespace BoozeStore.Controllers
     public class DrinkController : Controller
     {
         private readonly DrinkModel drinkmodel;
-        private readonly DrinkCollection drinkcollection = new DrinkCollection();
+        private readonly DrinkCollection drinkcollection;
         private List<DrinkViewModel> DVM;
         public DrinkController()
         {
-            //drinkmodel = new DrinkModel();
+            drinkcollection = new DrinkCollection();
         }
         public IActionResult Index(string SearchText)
         {
