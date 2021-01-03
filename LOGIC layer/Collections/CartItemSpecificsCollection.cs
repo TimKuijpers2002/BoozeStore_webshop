@@ -9,7 +9,14 @@ namespace LOGIC_layer.Collections
 {
     public class CartItemSpecificsCollection
     {
-        public List<CartSpecificsModel> GetAllSpecifics(List<string> keyIDs, List<DrinkModel> drinks)
+        private readonly CartItemCollection itemColl;
+        private readonly DrinkCollection drinkColl;
+        public CartItemSpecificsCollection()
+        {
+            itemColl = new CartItemCollection();
+            drinkColl = new DrinkCollection();
+        }
+        public List<CartSpecificsModel> GetAllSpecificsWithDrinkID(List<string> keyIDs, List<DrinkModel> drinks)
         {
             var specifics = new List<CartSpecificsModel>();
 
@@ -34,6 +41,27 @@ namespace LOGIC_layer.Collections
             else
             {
 
+            }
+            return specifics;
+        }
+
+        public List<CartSpecificsModel> GetAllSpecificsWithCartID(string CartID)
+        {
+            var specifics = new List<CartSpecificsModel>();
+            var drinks = drinkColl.GetAllDrinks();
+            var orders = itemColl.GetAllOrders();
+
+            var results = orders.Where(o => o.CartID.Contains(CartID)).ToList();
+            for (int i = 0; i < results.Count; i++)
+            {
+                for(int j = 0; j < drinks.Count; j++)
+                {
+                    if (results[i].DrinkID == drinks[j].DrinkID)
+                    {
+                        var model = new CartSpecificsModel(drinks[i].Name, drinks[i].Price, drinks[i].ImageLink, results[i].CartID, drinks[i].DrinkID, results[i].Quantity);
+                        specifics.Add(model);
+                    }
+                }
             }
             return specifics;
         }

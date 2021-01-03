@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BoozeStore.Models;
 using LOGIC_layer.Collections;
 using LOGIC_layer.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoozeStore.Controllers
@@ -29,7 +30,7 @@ namespace BoozeStore.Controllers
         {
             List<string> DrinkIDs = Request.Cookies.Keys.ToList();
             var drinks = drinkColl.GetAllDrinks();
-            var specifics = specificColl.GetAllSpecifics(DrinkIDs, drinks);
+            var specifics = specificColl.GetAllSpecificsWithDrinkID(DrinkIDs, drinks);
 
             foreach (var item in specifics)
             {
@@ -47,6 +48,42 @@ namespace BoozeStore.Controllers
                 }
             return View(DVM);
         }
-        
+
+        public IActionResult RemoveValueCookie(int ID)
+        {
+            string Key = Convert.ToString(ID);
+            CookieOptions cookie = new CookieOptions();
+            cookie.Expires = DateTime.Now.AddDays(7);
+
+                int quantity = Convert.ToInt32(Request.Cookies[Key]);
+                if (quantity > 1)
+                {
+                    quantity -= 1;
+                    string value = Convert.ToString(quantity);
+                    Response.Cookies.Append(Key, value, cookie);
+                }
+                else
+                {
+                Response.Cookies.Delete(Key);
+                }
+
+            return RedirectToAction("Index", "Cart");
+        }
+
+        public IActionResult AddValueCookie(int ID)
+        {
+            string Key = Convert.ToString(ID);
+            CookieOptions cookie = new CookieOptions();
+            cookie.Expires = DateTime.Now.AddDays(7);
+
+            int quantity = Convert.ToInt32(Request.Cookies[Key]);
+            
+                quantity += 1;
+                string value = Convert.ToString(quantity);
+                Response.Cookies.Append(Key, value, cookie);
+
+            return RedirectToAction("Index", "Cart");
+        }
+
     }
 }

@@ -41,6 +41,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
+            <td>
+                <button>@Html.ActionLink("-", "RemoveValueCookie", "Cart", new { ID = item.DrinkID })</button>
+            </td>
+            <td>
+                <button>@Html.ActionLink("+", "AddValueCookie", "Cart", new { ID = item.DrinkID })</button>
+            </td>
         </tr>
         }
     </tbody>

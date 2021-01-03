@@ -15,6 +15,7 @@ namespace BoozeStore.Controllers
         private readonly CartItemCollection itemColl;
         private readonly DrinkCollection drinkColl;
         private readonly CustomerCollection customerColl;
+        private readonly CartItemSpecificsCollection specificColl;
         private List<CartItemViewModel> CIVM;
 
         public AdminController()
@@ -23,6 +24,7 @@ namespace BoozeStore.Controllers
             itemColl = new CartItemCollection();
             drinkColl = new DrinkCollection();
             customerColl = new CustomerCollection();
+            specificColl = new CartItemSpecificsCollection();
             CIVM = new List<CartItemViewModel>();
         }
         public IActionResult Index()
@@ -39,44 +41,40 @@ namespace BoozeStore.Controllers
         {
             var items = cartColl.GetAllShoppingCarts();
             var SVM = new List<ShoppingCartViewModel>();
-
+            var customers = customerColl.GetAllCustomers();
             foreach(var order in items)
             {
-                var customer = customerColl.GetByCustomerID(order.CustomerID);
-                foreach (var result in customer) {
+                var ID = customers.Where(c => c.CustomerID.Contains(order.CustomerID)).ToList();
                     var currentOrder = new ShoppingCartViewModel()
                     {
                         CartID = order.CartID,
                         CustomerID = order.CustomerID,
-                        Name = result.Name,
+                        Name = ID.First().Name,
                         TotalPrice = order.TotalPrice,
                         CreationTime = order.CreationTime
                     };
                     SVM.Add(currentOrder);
-                }
             }
             return View(SVM);
         }
 
         public IActionResult OrderDetails(string ID)
         {
-            var drinks = drinkColl.GetAllDrinks();
-            var items = itemColl.GetByCartID(ID);
-            foreach (var drink in items) {
+            var specifics = specificColl.GetAllSpecificsWithCartID(ID);
 
-                var result = drinks.Where(a => a.DrinkID == drink.DrinkID).ToList();
-                foreach (var drinkresult in result) {
-                    var order = new CartItemViewModel()
-                    {
-                        CartID = drink.CartID,
-                        DrinkID = drink.DrinkID,
-                        Quantity = drink.Quantity,
-                        Name = drinkresult.Name,
-                        ImageLink = drinkresult.ImageLink
-                        
-                    };
-                    CIVM.Add(order);
-                } 
+            foreach (var item in specifics)
+            {
+                var viewmodel = new CartItemViewModel()
+                {
+                    CartID = item.CartID,
+                    DrinkID = item.DrinkID,
+                    Quantity = item.Quantity,
+                    Name = item.Name,
+                    ImageLink = item.ImageLink,
+                    Price = item.Price
+                };
+
+                CIVM.Add(viewmodel);
             }
 
             return View(CIVM);
