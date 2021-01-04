@@ -20,31 +20,16 @@ namespace BoozeStore.Controllers
         }
         public IActionResult Index(string SearchText)
         {
-            var all = drinkcollection.GetAllDrinks();
             DVM = new List<DrinkViewModel>();
 
-            if (!string.IsNullOrEmpty(SearchText))
+            var drinkResults = drinkcollection.SearchForDrinks(SearchText);
+            foreach(var drink in drinkResults)
             {
-                var result = all.Where(d => d.Name.Contains(SearchText));
-                foreach (var unconvertedArticle in result)
-                {
-                        DrinkViewModel viewModel = new DrinkViewModel() { DrinkID = unconvertedArticle.DrinkID, Name = unconvertedArticle.Name, Volume = unconvertedArticle.Volume, AlcoholPercentage = unconvertedArticle.AlcoholPercentage, AmountStored = unconvertedArticle.AmountStored, Price = unconvertedArticle.Price, ImageLink = unconvertedArticle.ImageLink};
-                        DVM.Add(viewModel);
-                }
-                ViewData["Drinks"] = DVM;
-                return View(DVM);
+                DrinkViewModel viewModel = new DrinkViewModel() { DrinkID = drink.DrinkID, Name = drink.Name, Volume = drink.Volume, AlcoholPercentage = drink.AlcoholPercentage, AmountStored = drink.AmountStored, Price = drink.Price, ImageLink = drink.ImageLink };
+                DVM.Add(viewModel);
             }
-            else
-            {
-                    foreach (var drink in all)
-                    {
-                        DrinkViewModel viewModel = new DrinkViewModel() { DrinkID = drink.DrinkID, Name = drink.Name, Volume = drink.Volume, AlcoholPercentage = drink.AlcoholPercentage, AmountStored = drink.AmountStored, Price = drink.Price, ImageLink = drink.ImageLink };
-                        DVM.Add(viewModel);
-                    }
-                ViewData["Drinks"] = DVM;
-                return View(DVM);
-                
-            }
+
+            return View(DVM);
         }
 
         public IActionResult Details(int? ID)
