@@ -8,7 +8,7 @@
 <h2>Drinks</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button class="btn btn-sm btn-outline-secondary">@Html.ActionLink("Create drink", "Create", "Drink")</button>
 </p>
 <table class="table">
     <thead>
@@ -59,12 +59,11 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageLink)
+                <img class="img-fluid" style="width:auto; height:25vh;" src="@Html.DisplayFor(modelItem => item.ImageLink)" />
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", "Drink", new { ID = item.DrinkID}) 
+                @Html.ActionLink("Delete", "Delete", "Drink", new { ID = item.DrinkID})
             </td>
         </tr>
 }

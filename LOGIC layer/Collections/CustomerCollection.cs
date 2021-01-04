@@ -1,6 +1,8 @@
 ﻿using DAL_factory.Factories;
 using DTO_layer.DTO_s;
 using LOGIC_layer.Models;
+using MailKit.Net.Smtp;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +57,30 @@ namespace LOGIC_layer.Collections
             var result = GetAllCustomers();
             var customer = result.Where(r => r.CustomerID.Contains(ID)).ToList();
             return customer;
+        }
+
+        public void SendEmail(string email, string name)
+        {
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("BoozeStore Order", "timkuijpers2002@outlook.com"));
+            message.To.Add(new MailboxAddress(name, email));
+            message.Subject = "Your recent order";
+            message.Body = new TextPart("plain")
+            {
+                Text = "Change your password using this link: https://localhost:44341/Account/inputpassword"
+            };
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.office365.com", 587, false);
+                client.Authenticate("timkuijpers2002@outlook.com", "TimK2002");
+                var options = FormatOptions.Default.Clone();
+                if (client.Capabilities.HasFlag(SmtpCapabilities.UTF8))
+                {
+                    options.International = true;
+                }
+                client.Send(options, message);
+                client.Disconnect(true);
+            };
         }
     }
 }

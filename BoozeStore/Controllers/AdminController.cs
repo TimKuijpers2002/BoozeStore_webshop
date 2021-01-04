@@ -17,6 +17,7 @@ namespace BoozeStore.Controllers
         private readonly CustomerCollection customerColl;
         private readonly CartItemSpecificsCollection specificColl;
         private List<CartItemViewModel> CIVM;
+        private List<DrinkViewModel> DVM;
 
         public AdminController()
         {
@@ -34,7 +35,15 @@ namespace BoozeStore.Controllers
 
         public IActionResult Drinks()
         {
-            return View();
+            DVM = new List<DrinkViewModel>();
+            var all = drinkColl.GetAllDrinks();
+
+            foreach (var drink in all)
+            {
+                DrinkViewModel viewModel = new DrinkViewModel() { DrinkID = drink.DrinkID, Name = drink.Name, Volume = drink.Volume, AlcoholPercentage = drink.AlcoholPercentage, AmountStored = drink.AmountStored, Price = drink.Price, ImageLink = drink.ImageLink };
+                DVM.Add(viewModel);
+            }
+            return View(DVM);
         }
 
         public IActionResult Orders()

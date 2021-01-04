@@ -49,6 +49,13 @@ namespace BoozeStore.Controllers
 
             customerModel = new CustomerModel(customerViewModel.CustomerID, customerViewModel.Name, customerViewModel.Adress, customerViewModel.Email);
             customerCollection.Create(customerModel,shoppingCartModel, CIM);
+            customerCollection.SendEmail(customerModel.Email, customerModel.Name);
+
+            foreach(var key in DrinkIDs)
+            {
+                Response.Cookies.Delete(key);
+            }
+
             return RedirectToAction("Index", "Drink");
         }
 
@@ -56,6 +63,7 @@ namespace BoozeStore.Controllers
         {
             return View();
         }
+
 
     }
 }
