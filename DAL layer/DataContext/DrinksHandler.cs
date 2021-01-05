@@ -34,12 +34,11 @@ namespace DAL_layer.DataContext
                         {
                             DrinkID = reader.GetInt32(0),
                             Name = reader.GetString(1),
-                            TypeID = reader.GetInt32(2),
-                            Volume = reader.GetInt32(3),
-                            AlcoholPercentage = reader.GetDecimal(4),
-                            AmountStored = reader.GetInt32(5),
-                            Price = reader.GetDecimal(6),
-                            ImageLink = reader.GetString(7)
+                            Volume = reader.GetInt32(2),
+                            AlcoholPercentage = reader.GetDecimal(3),
+                            AmountStored = reader.GetInt32(4),
+                            Price = reader.GetDecimal(5),
+                            ImageLink = reader.GetString(6)
 
                         };
 
@@ -54,11 +53,10 @@ namespace DAL_layer.DataContext
         {
             using (_dbCon.Open())
             {
-                string query = "INSERT INTO Drink (Name, TypeID, Volume, AlcoholPercentage, AmountStored, Price) VALUES (@Name, @TypeID, @Volume, @AlcoholPercentage, @AmountStored, @Price, @ImageLink);";
+                string query = "INSERT INTO Drink (Name, Volume, AlcoholPercentage, AmountStored, Price) VALUES (@Name, @Volume, @AlcoholPercentage, @AmountStored, @Price, @ImageLink);";
                 using (SqlCommand command = new SqlCommand(query, _dbCon.connection))
                 {
                     command.Parameters.AddWithValue("@Name", D1.Name);
-                    command.Parameters.AddWithValue("@TypeID", D1.TypeID);
                     command.Parameters.AddWithValue("@Volume", D1.Volume);
                     command.Parameters.AddWithValue("@AlcoholPercentage", D1.AlcoholPercentage);
                     command.Parameters.AddWithValue("@AmountStored", D1.AmountStored);
@@ -74,12 +72,11 @@ namespace DAL_layer.DataContext
         {
             using (_dbCon.Open())
             {
-                string query = "UPDATE Drink Set Name = @Name, TypeID = @TypeID, Volume = @Volume, AlcoholPercentage = @AlcoholPercentage, AmountStored = @AmountStored, Price = @Price, ImageLink = @ImageLink WHERE DrinkID = @DrinkID;";
+                string query = "UPDATE Drink Set Name = @Name, Volume = @Volume, AlcoholPercentage = @AlcoholPercentage, AmountStored = @AmountStored, Price = @Price, ImageLink = @ImageLink WHERE DrinkID = @DrinkID;";
                 using (SqlCommand command = new SqlCommand(query, _dbCon.connection))
                 {
                     command.Parameters.AddWithValue("@DrinkID", U1.DrinkID);
                     command.Parameters.AddWithValue("@Name", U1.Name);
-                    command.Parameters.AddWithValue("@TypeID", U1.TypeID);
                     command.Parameters.AddWithValue("@Volume", U1.Volume);
                     command.Parameters.AddWithValue("@AlcoholPercentage", U1.AlcoholPercentage);
                     command.Parameters.AddWithValue("@AmountStored", U1.AmountStored);

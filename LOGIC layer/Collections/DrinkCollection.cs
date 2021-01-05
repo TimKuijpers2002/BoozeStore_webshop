@@ -16,7 +16,6 @@ namespace LOGIC_layer.Collections
             {
                 DrinkID = drink.DrinkID,
                 Name = drink.Name,
-                TypeID = drink.TypeID,
                 Volume = drink.Volume,
                 AlcoholPercentage = drink.AlcoholPercentage,
                 AmountStored = drink.AmountStored,
@@ -33,7 +32,7 @@ namespace LOGIC_layer.Collections
             var drink = new List<DrinkModel>();
             foreach (var dto in result)
             {
-                drink.Add(new DrinkModel(dto.DrinkID,dto.Name,dto.TypeID,dto.Volume,dto.AlcoholPercentage,dto.AmountStored,dto.Price,dto.ImageLink));
+                drink.Add(new DrinkModel(dto.DrinkID,dto.Name,dto.Volume,dto.AlcoholPercentage,dto.AmountStored,dto.Price,dto.ImageLink));
             }
             return drink;
         }
@@ -48,7 +47,7 @@ namespace LOGIC_layer.Collections
                 var result = all.Where(d => d.Name.Contains(searchText));
                 foreach (var unconvertedArticle in result)
                 {
-                    DrinkModel model = new DrinkModel(unconvertedArticle.DrinkID, unconvertedArticle.Name, unconvertedArticle.TypeID, unconvertedArticle.Volume, unconvertedArticle.AlcoholPercentage, unconvertedArticle.AmountStored, unconvertedArticle.Price, unconvertedArticle.ImageLink);
+                    DrinkModel model = new DrinkModel(unconvertedArticle.DrinkID, unconvertedArticle.Name, unconvertedArticle.Volume, unconvertedArticle.AlcoholPercentage, unconvertedArticle.AmountStored, unconvertedArticle.Price, unconvertedArticle.ImageLink);
                     drinkResult.Add(model);
                 }
                 return drinkResult;

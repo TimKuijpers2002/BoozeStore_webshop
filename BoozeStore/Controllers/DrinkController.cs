@@ -65,5 +65,13 @@ namespace BoozeStore.Controllers
 
             return View(DVM);
         }
+
+        public IActionResult Create(DrinkViewModel drinkViewModel)
+        {
+            var tempID = 0;
+            DrinkModel drinkModel = new DrinkModel(tempID, drinkViewModel.Name, drinkViewModel.Volume, drinkViewModel.AlcoholPercentage, drinkViewModel.AmountStored, drinkViewModel.Price, drinkViewModel.ImageLink);
+            drinkcollection.Create(drinkModel);
+            return RedirectToAction("Index");
+        }
     }
 }

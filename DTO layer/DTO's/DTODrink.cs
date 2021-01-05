@@ -8,7 +8,6 @@ namespace DTO_layer.DTO_s
     {
         public int DrinkID { get; set; }
         public string Name { get; set; }
-        public int TypeID { get; set; }
         public int Volume { get; set; }
         public decimal AlcoholPercentage { get; set; }
         public int AmountStored { get; set; }

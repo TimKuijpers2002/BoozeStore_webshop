@@ -10,18 +10,16 @@ namespace LOGIC_layer.Models
     {
         public int DrinkID { get; }
         public string Name { get; }
-        public int TypeID { get; }
         public int Volume { get; }
         public decimal AlcoholPercentage { get; }
         public int AmountStored { get; }
         public decimal Price { get; }
         public string ImageLink { get; }
 
-        public DrinkModel(int drinkID, string name, int typeID, int volume, decimal alcoholpercentage, int amountstored, decimal price, string imagelink)
+        public DrinkModel(int drinkID, string name, int volume, decimal alcoholpercentage, int amountstored, decimal price, string imagelink)
         {
             DrinkID = drinkID;
             Name = name;
-            TypeID = typeID;
             Volume = volume;
             AlcoholPercentage = alcoholpercentage;
             AmountStored = amountstored;
@@ -40,7 +38,6 @@ namespace LOGIC_layer.Models
             {
                 DrinkID = drink.DrinkID,
                 Name = drink.Name,
-                TypeID = drink.TypeID,
                 Volume = drink.Volume,
                 AlcoholPercentage = drink.AlcoholPercentage,
                 AmountStored = drink.AmountStored,
