@@ -10,9 +10,9 @@ namespace DAL_layer.DataContext
     public class ShoppingCartHandler : IShoppingCartHandler
     {
 
-        private IDBConnectionHandler _dbCon;
+        private DBConnectionHandler _dbCon;
 
-        public ShoppingCartHandler(IDBConnectionHandler dbCon)
+        public ShoppingCartHandler(DBConnectionHandler dbCon)
         {
             _dbCon = dbCon;
         }

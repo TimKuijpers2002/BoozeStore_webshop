@@ -71,7 +71,14 @@ namespace BoozeStore.Controllers
             var tempID = 0;
             DrinkModel drinkModel = new DrinkModel(tempID, drinkViewModel.Name, drinkViewModel.Volume, drinkViewModel.AlcoholPercentage, drinkViewModel.AmountStored, drinkViewModel.Price, drinkViewModel.ImageLink);
             drinkcollection.Create(drinkModel);
-            return RedirectToAction("Index");
+            return RedirectToAction("Drinks", "Admin");
+        }
+
+        public IActionResult Delete(int ID)
+        {
+            var drink = drinkcollection.GetDrinkByID(ID).First();
+            drink.Delete(ID);
+            return RedirectToAction("Drinks", "Admin");
         }
     }
 }

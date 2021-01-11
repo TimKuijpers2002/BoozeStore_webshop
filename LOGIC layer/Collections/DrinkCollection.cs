@@ -57,5 +57,11 @@ namespace LOGIC_layer.Collections
                 return all;
             }
         }
+
+        public List<DrinkModel> GetDrinkByID(int ID)
+        {
+            var result = GetAllDrinks();
+            return result.Where(d => d.DrinkID == ID).ToList();
+        } 
     }
 }

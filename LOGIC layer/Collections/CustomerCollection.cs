@@ -1,6 +1,7 @@
 ﻿using DAL_factory.Factories;
 using DTO_layer.DTO_s;
 using LOGIC_layer.Models;
+using LOGIC_layer.Validations;
 using MailKit.Net.Smtp;
 using MimeKit;
 using System;
@@ -13,32 +14,51 @@ namespace LOGIC_layer.Collections
     public class CustomerCollection
     {
         private CartItemCollection cartColl;
+        private CustomerValidation customerVal;
 
         public CustomerCollection()
         {
             cartColl = new CartItemCollection();
+            customerVal = new CustomerValidation();
         }
         public void Create(CustomerModel customer, ShoppingCartModel shoppingCartModel, List<CartItemModel> cartItemModel)
         {
-            var ID = customer.GeneratedID();
-
-            var _dto = new DTOCustomer()
+            if (!customerVal.isCustomerNew(customer, GetAllCustomers()))
             {
-                CustomerID = ID,
-                Name = customer.Name,
-                Adress = customer.Adress,
-                Email = customer.Email
-            };
+                var CustomerID = customer.GeneratedID();
+                var CartID = customer.GeneratedID();
 
-            customer.CreateCart(shoppingCartModel, ID);
+                var _dto = new DTOCustomer()
+                {
+                    CustomerID = CustomerID,
+                    Name = customer.Name,
+                    Adress = customer.Adress,
+                    Email = customer.Email
+                };
 
-            foreach (var item in cartItemModel)
-            {
-                var model = new CartItemModel(item.CartID, item.DrinkID, item.Quantity);
-                cartColl.Create(model, ID);
+                customer.CreateCart(shoppingCartModel, CustomerID, CartID);
+
+                foreach (var item in cartItemModel)
+                {
+                    var model = new CartItemModel(CartID, item.DrinkID, item.Quantity);
+                    cartColl.Create(model, CartID);
+                }
+
+                CustomerFactory.customerConnectionHandler.CreateCustomer(_dto);
             }
+            else
+            {
+                var CartID = customer.GeneratedID();
+                var existingCustomer = customerVal.getExistingCustomer(customer.Email, GetAllCustomers());
+                var CustomerID = existingCustomer.First().CustomerID;
+                customer.CreateCart(shoppingCartModel, CustomerID, CartID);
 
-            CustomerFactory.customerConnectionHandler.CreateCustomer(_dto);
+                foreach (var item in cartItemModel)
+                {
+                    var model = new CartItemModel(CartID, item.DrinkID, item.Quantity);
+                    cartColl.Create(model, CartID);
+                }
+            }
         }
 
         public List<CustomerModel> GetAllCustomers()
@@ -59,28 +79,28 @@ namespace LOGIC_layer.Collections
             return customer;
         }
 
-        public void SendEmail(string email, string name)
-        {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("BoozeStore Order", "timkuijpers2002@outlook.com"));
-            message.To.Add(new MailboxAddress(name, email));
-            message.Subject = "Your recent order";
-            message.Body = new TextPart("plain")
-            {
-                Text = "Change your password using this link: https://localhost:44341/Account/inputpassword"
-            };
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.office365.com", 587, false);
-                client.Authenticate("timkuijpers2002@outlook.com", "TimK2002");
-                var options = FormatOptions.Default.Clone();
-                if (client.Capabilities.HasFlag(SmtpCapabilities.UTF8))
-                {
-                    options.International = true;
-                }
-                client.Send(options, message);
-                client.Disconnect(true);
-            };
-        }
+        //public void SendEmail(string email, string name)
+        //{
+        //    var message = new MimeMessage();
+        //    message.From.Add(new MailboxAddress("BoozeStore Order", "timkuijpers2002@outlook.com"));
+        //    message.To.Add(new MailboxAddress(name, email));
+        //    message.Subject = "Your recent order";
+        //    message.Body = new TextPart("plain")
+        //    {
+        //        Text = "Change your password using this link: "
+        //    };
+        //    using (var client = new SmtpClient())
+        //    {
+        //        client.Connect("smtp.office365.com", 587, false);
+        //        client.Authenticate("timkuijpers2002@outlook.com", "TimK2002");
+        //        var options = FormatOptions.Default.Clone();
+        //        if (client.Capabilities.HasFlag(SmtpCapabilities.UTF8))
+        //        {
+        //            options.International = true;
+        //        }
+        //        client.Send(options, message);
+        //        client.Disconnect(true);
+        //    };
+        //}
     }
 }

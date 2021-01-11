@@ -103,5 +103,10 @@ namespace BoozeStore.Controllers
             }
             return RedirectToAction("Orders");
         }
+
+        public IActionResult CreateDrinkPage()
+        {
+            return View();
+        }
     }
 }

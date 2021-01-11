@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.OpsWorks.Model;
 using DAL_layer.DataContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,6 +69,25 @@ namespace BoozeStore
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
             DBConnectionHandler.SetConnectionString(ConnectionString);
+
+            var supportedCultures = new[]
+{
+        new CultureInfo("en-US"),
+        new CultureInfo("NL"),
+    };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US"),
+                // Formatting numbers, dates, etc.
+                SupportedCultures = supportedCultures,
+                // Localized UI strings.
+                SupportedUICultures = supportedCultures
+            });
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
 
 
         }

@@ -9,9 +9,9 @@ namespace DAL_layer.DataContext
 {
     public class CartItemsHandler : ICartItemsHandler
     {
-        private IDBConnectionHandler _dbCon;
+        private DBConnectionHandler _dbCon;
 
-        public CartItemsHandler(IDBConnectionHandler dbCon)
+        public CartItemsHandler(DBConnectionHandler dbCon)
         {
             _dbCon = dbCon;
         }

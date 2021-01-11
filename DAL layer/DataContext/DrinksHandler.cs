@@ -9,9 +9,9 @@ namespace DAL_layer.DataContext
 {
     public class DrinksHandler : IDrinksHandler
     {
-        private IDBConnectionHandler _dbCon;
+        private DBConnectionHandler _dbCon;
 
-        public DrinksHandler(IDBConnectionHandler dbCon)
+        public DrinksHandler(DBConnectionHandler dbCon)
         {
             _dbCon = dbCon;
         }
@@ -53,7 +53,7 @@ namespace DAL_layer.DataContext
         {
             using (_dbCon.Open())
             {
-                string query = "INSERT INTO Drink (Name, Volume, AlcoholPercentage, AmountStored, Price) VALUES (@Name, @Volume, @AlcoholPercentage, @AmountStored, @Price, @ImageLink);";
+                string query = "INSERT INTO Drink (Name, Volume, AlcoholPercentage, AmountStored, Price, ImageLink) VALUES (@Name, @Volume, @AlcoholPercentage, @AmountStored, @Price, @ImageLink);";
                 using (SqlCommand command = new SqlCommand(query, _dbCon.connection))
                 {
                     command.Parameters.AddWithValue("@Name", D1.Name);

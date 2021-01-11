@@ -9,9 +9,9 @@ namespace DAL_layer.DataContext
 {
     public class CustomerHandler : ICustomerHandler
     {
-        private IDBConnectionHandler _dbCon;
+        private DBConnectionHandler _dbCon;
 
-        public CustomerHandler(IDBConnectionHandler dbCon)
+        public CustomerHandler(DBConnectionHandler dbCon)
         {
             _dbCon = dbCon;
         }

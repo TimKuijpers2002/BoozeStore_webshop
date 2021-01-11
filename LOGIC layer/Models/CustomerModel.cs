@@ -34,12 +34,11 @@ namespace LOGIC_layer.Models
             return id;
         }
 
-        public void CreateCart(ShoppingCartModel cart, string customerID)
+        public void CreateCart(ShoppingCartModel cart, string customerID, string cartID)
         {
-
             var _dto = new DTOShoppingCart()
             {
-                CartID = customerID,
+                CartID = cartID,
                 CustomerID = customerID,
                 TotalPrice = cart.TotalPrice,
                 CreationTime = cart.CreationTime,

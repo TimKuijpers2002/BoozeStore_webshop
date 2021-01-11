@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,6 +30,8 @@ namespace BoozeStore.Models
 
         [Display(Name = "Price")]
         [Required(ErrorMessage = "Required")]
+        [Range(1, 100), DataType(DataType.Currency)]
+        [Column(TypeName = "decimal")]
         public decimal Price { get; set; }
 
         public string ImageLink { get; set; }

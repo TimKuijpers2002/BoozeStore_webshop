@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DAL_layer.DataContext
 {
-    public class DBConnectionHandler : IDBConnectionHandler
+    public class DBConnectionHandler
     {
         private static string connectionString = "";
 
