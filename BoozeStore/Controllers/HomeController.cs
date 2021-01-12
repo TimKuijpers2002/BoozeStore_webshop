@@ -30,7 +30,9 @@ namespace BoozeStore.Controllers
             CookieOptions cookie = new CookieOptions();
             cookie.Expires = DateTime.Now.AddDays(7);
 
-            if(Request.Cookies[Key] == null)
+            TempData["add-drink"] = "Added drink to your cart!";
+
+            if (Request.Cookies[Key] == null)
             {
                 Response.Cookies.Append(Key, "1", cookie);
             }

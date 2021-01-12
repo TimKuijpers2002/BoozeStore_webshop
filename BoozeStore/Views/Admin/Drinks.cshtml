@@ -62,8 +62,8 @@
                 <img class="img-fluid" style="width:auto; height:25vh;" src="@Html.DisplayFor(modelItem => item.ImageLink)" />
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", "Drink", new { ID = item.DrinkID}) 
-                @Html.ActionLink("Delete", "Delete", "Drink", new { ID = item.DrinkID})
+                @Html.ActionLink("Edit", "Edit", "Admin", new { ID = item.DrinkID}) 
+                @Html.ActionLink("Delete", "Delete", "Admin", new { ID = item.DrinkID})
             </td>
         </tr>
 }

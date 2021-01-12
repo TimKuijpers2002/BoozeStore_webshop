@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BoozeStore.Models;
 using LOGIC_layer.Collections;
 using LOGIC_layer.Models;
+using LOGIC_layer.Validations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoozeStore.Controllers
@@ -18,6 +19,7 @@ namespace BoozeStore.Controllers
         private readonly CartItemSpecificsCollection specificColl;
         private List<CartItemViewModel> CIVM;
         private List<DrinkViewModel> DVM;
+        private readonly DrinkValidation drinkVal;
 
         public AdminController()
         {
@@ -27,6 +29,7 @@ namespace BoozeStore.Controllers
             customerColl = new CustomerCollection();
             specificColl = new CartItemSpecificsCollection();
             CIVM = new List<CartItemViewModel>();
+            drinkVal = new DrinkValidation();
         }
         public IActionResult Index()
         {
@@ -107,6 +110,29 @@ namespace BoozeStore.Controllers
         public IActionResult CreateDrinkPage()
         {
             return View();
+        }
+
+        public IActionResult Create(DrinkViewModel drinkViewModel)
+        {
+            var tempID = 0;
+            DrinkModel drinkModel = new DrinkModel(tempID, drinkViewModel.Name, drinkViewModel.Volume, drinkViewModel.AlcoholPercentage, drinkViewModel.AmountStored, drinkViewModel.Price, drinkViewModel.ImageLink);
+            if (!drinkVal.isCustomerNew(drinkModel, drinkColl.GetAllDrinks()))
+            {
+                drinkColl.Create(drinkModel);
+                return RedirectToAction("Drinks", "Admin");
+            }
+            else
+            {
+                TempData["drinkerror"] = "Drink already exists";
+                return RedirectToAction("CreateDrinkPage", "Admin");
+            }
+        }
+
+        public IActionResult Delete(int ID)
+        {
+            var drink = drinkColl.GetDrinkByID(ID).First();
+            drink.Delete(ID);
+            return RedirectToAction("Drinks", "Admin");
         }
     }
 }

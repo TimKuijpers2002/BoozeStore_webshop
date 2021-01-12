@@ -8,8 +8,16 @@
 <div class="h2 pt-3 text-center font-weight-bold">Our drinks!</div>
 <hr />
 
+@if (TempData["add-drink"] != null)
+{
+    <strong class="alert alert-success">@TempData["add-drink"]</strong>
+    <br />
+    <br />
+}
+
 <div class="col-container">
     <div class="row">
+
 
         @foreach (var item in Model)
         {
@@ -23,7 +31,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-outline-secondary">@Html.ActionLink("Lees meer!", "Details", "Drink", new { ID = item.DrinkID })</button>
-                                <button class="btn btn-sm btn-outline-secondary">`@Html.ActionLink("Add drink", "StoreValuesCookie", "Home", new { ID = item.DrinkID})</button>
+                                <button class="btn btn-sm btn-outline-secondary">`@Html.ActionLink("Add drink", "StoreValuesCookie", "Home", new { ID = item.DrinkID })</button>
                             </div>
                             <small class="text-muted">Rentalprice €@Html.DisplayFor(Modelitem => item.Price)</small>
                         </div>

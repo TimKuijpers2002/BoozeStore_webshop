@@ -11,7 +11,6 @@ namespace LOGIC_layer.Validations
     {
         public bool isCustomerNew(CustomerModel customer, List<CustomerModel> AllCustomers)
         {
-            var BOOL = AllCustomers.Any(c => c.Email == customer.Email);
             return AllCustomers.Any(c => c.Email == customer.Email);
         }
 
